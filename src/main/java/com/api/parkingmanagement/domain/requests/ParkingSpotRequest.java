@@ -1,15 +1,20 @@
 package com.api.parkingmanagement.domain.requests;
 
+import com.api.parkingmanagement.domain.ParkingSpotModel;
+import com.api.parkingmanagement.validations.annotations.UniqueValue;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class ParkingSpotRequest {
 
     @NotBlank
+    @UniqueValue(domainClass = ParkingSpotModel.class, fieldName = "parkingSpotNumber")
     private String parkingSpotNumber;
 
     @NotBlank
     @Size(max = 7)
+    @UniqueValue(domainClass = ParkingSpotModel.class, fieldName = "licensePlateCar")
     private String licensePlateCar;
 
     @NotBlank
