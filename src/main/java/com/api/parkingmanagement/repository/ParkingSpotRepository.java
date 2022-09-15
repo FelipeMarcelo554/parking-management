@@ -1,6 +1,8 @@
 package com.api.parkingmanagement.repository;
 
 import com.api.parkingmanagement.domain.ParkingSpotModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +15,8 @@ public interface ParkingSpotRepository extends JpaRepository<ParkingSpotModel, U
     boolean existsByApartmentAndBlock(String apartment, String block);
 
     Optional<ParkingSpotModel> findByApartmentAndBlock(String apartment, String block);
+
+    boolean deleteByApartmentAndBlock(String apartment, String block);
+
+    Page<ParkingSpotModel> findAll(Pageable pageable);
 }
