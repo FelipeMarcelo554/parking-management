@@ -16,11 +16,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -46,7 +45,7 @@ public class ParkingSpotController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity<ParkingSpotPageableResponse> getAllParkingSpot(@PageableDefault(page = 0, size = 1, sort = "responsibleName", direction = Sort.Direction.ASC)Pageable pageable) {
+    ResponseEntity<ParkingSpotPageableResponse> getAllParkingSpot(@PageableDefault(page = 0, size = 1, sort = "responsibleName", direction = Sort.Direction.ASC) Pageable pageable) {
 
         ParkingSpotPageableResponse pageableResponse = new ParkingSpotPageableResponse();
         Page<ParkingSpotModel> parkingSpotModelPage = parkingSpotRepository.findAll(pageable);
@@ -82,15 +81,16 @@ public class ParkingSpotController {
         return ResponseEntity.ok().body(response);
     }
 
+    @Transactional
     @RequestMapping(value = "/{apartment}/{block}", method = RequestMethod.DELETE)
-    ResponseEntity deleteParkingSpots(
+    public ResponseEntity deleteParkingSpots(
             @PathVariable(value = "apartment") String apartment, @PathVariable(value = "block") String block) {
 
         Optional<ParkingSpotModel> optionalParkingSpotModel = parkingSpotRepository.findByApartmentAndBlock(apartment, block);
         if (!optionalParkingSpotModel.isPresent())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
-        if (!parkingSpotRepository.deleteByApartmentAndBlock(apartment, block))
+        if (parkingSpotRepository.deleteByApartmentAndBlock(apartment, block) < 0)
             return ResponseEntity.internalServerError().build();
 
         return ResponseEntity.ok().body("ParkingSpot Deleted! apartment:" + apartment + " block:" + block);

@@ -16,7 +16,7 @@ public interface ParkingSpotRepository extends JpaRepository<ParkingSpotModel, U
 
     Optional<ParkingSpotModel> findByApartmentAndBlock(String apartment, String block);
 
-    boolean deleteByApartmentAndBlock(String apartment, String block);
+    Integer deleteByApartmentAndBlock(String apartment, String block);
 
     Page<ParkingSpotModel> findAll(Pageable pageable);
 }
