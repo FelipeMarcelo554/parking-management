@@ -1,5 +1,6 @@
 package com.api.parkingmanagement.domain;
 
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,11 +22,11 @@ public class UserModel implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "TB_USERS_ROLES",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<RolesModel> roles;
+    private List<RoleModel> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -44,6 +45,10 @@ public class UserModel implements UserDetails {
     @Override
     public String getUsername() {
         return this.userName;
+    }
+
+    public List<RoleModel> getRoles() {
+        return roles;
     }
 
     @Override

@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @RestController
 //@CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping(value = "/parking-spot")
+@RequestMapping(value = "/api/parking-spot")
 public class ParkingSpotController {
 
     @Autowired

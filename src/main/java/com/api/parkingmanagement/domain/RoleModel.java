@@ -7,19 +7,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TB_ROLE")
-public class RolesModel implements GrantedAuthority {
+public class RoleModel implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(unique = true, nullable = false)
-    private RoleName roleName;
+    private String roleName;
 
     @Override
     public String getAuthority() {
-        return this.roleName.toString();
+        return this.roleName;
     }
 
     public Long getId() {
@@ -30,11 +29,11 @@ public class RolesModel implements GrantedAuthority {
         this.id = id;
     }
 
-    public RoleName getRoleName() {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(RoleName roleName) {
+    public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 }

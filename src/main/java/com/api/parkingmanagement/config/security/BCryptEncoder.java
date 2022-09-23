@@ -1,4 +1,4 @@
-package com.api.parkingmanagement.conifg.security;
+package com.api.parkingmanagement.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

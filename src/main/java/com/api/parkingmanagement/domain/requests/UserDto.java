@@ -20,6 +20,11 @@ public class UserDto {
     public UserDto() {
     }
 
+    public UserDto(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
     public String getUserName() {
         return userName;
     }
