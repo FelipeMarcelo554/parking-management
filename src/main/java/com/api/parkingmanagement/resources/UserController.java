@@ -49,7 +49,7 @@ public class UserController {
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentContextPath().path("/" + user.getUserName()).build().toUri()).build();
     }
 
-    @RequestMapping(path = "/{userName}", method = RequestMethod.GET)
+    @RequestMapping(path = "checkUser/{userName}", method = RequestMethod.GET)
     ResponseEntity<Boolean> isUserValid(@PathVariable(value = "userName") String userName) {
         return ResponseEntity.ok().body(userService.isUserValid(userName));
     }
